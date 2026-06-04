@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Void Executor</title>
+    <meta name="description" content="Get Void Executor for the best price.">
+    <meta property="og:title" content="Void Executor">
+    <meta property="og:image" content="Image.png">
+    <link rel="icon" type="image/png" href="Image.png">
+    <meta name="theme-color" content="#6571ff" />
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    
+    <!-- Стилизации (Tailwind) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+      :root {
+        --cl-accent: 101,113,255;
+        --cl-background: 6,6,12;
+        --cl-card: 11,11,17;
+      }
+      body {
+        font-family: 'Play', sans-serif;
+        background-color: rgb(6,6,12);
+      }
+      .product-card {
+        background-color: rgb(11,11,17);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.2s, border-color 0.2s;
+      }
+      .product-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(101, 113, 255, 0.4);
+      }
+      .btn-primary {
+        background-color: rgb(101, 113, 255);
+        transition: background-color 0.2s;
+      }
+      .btn-primary:hover {
+        background-color: rgb(80, 90, 230);
+      }
+      .modal-bg {
+        background-color: rgba(6, 6, 12, 0.85);
+        backdrop-filter: blur(8px);
+      }
+      .payment-input {
+        background-color: rgb(20, 20, 30);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+      .payment-input:focus {
+        border-color: rgb(101, 113, 255);
+        outline: none;
+      }
+    </style>
+  </head>
+  
+  <body class="text-white">
+    
+    <!-- Background Image / Overlay -->
+    <div class="fixed inset-0 z-[-1] bg-center bg-cover pointer-events-none opacity-20" style="background-image: url('https://static.mysellauth.com/storage/images/911826.webp');"></div>
+    
+    <!-- App Wrapper с AlpineJS за управление на валутите и прозореца за плащане -->
+    <div id="app" x-data="{ 
+      currency: 'eur',
+      basePrice: 3.00,
+      showModal: false,
+      getFormattedPrice() {
+        switch(this.currency) {
+          case 'bgn': return '5.87 лв.';
+          case 'usd': return '$3.25';
+          case 'gbp': return '£2.50';
+          case 'btc': return '₿ 0.00005';
+          default: return '3.00 €';
+        }
+      }
+    }">
+      
+      <!-- Announcement Bar -->
+      <div class="announcement component">
+        <div class="p-2 text-center bg-blue-600 border-b border-blue-700">
+          <div x-data="{ activeIndex: 0 }" x-init="setInterval(() => { activeIndex = (activeIndex + 1) % 4 }, 3000)" class="overflow-hidden h-5 text-sm">
+            <p x-show="activeIndex === 0" class="font-medium truncate">💥 New Products Available Now!</p>
+            <p x-show="activeIndex === 1" class="font-medium truncate" style="display: none;">🔥 Check Our Limited Time Offers!</p>
+            <p x-show="activeIndex === 2" class="font-medium truncate" style="display: none;">⌛ What Are You Waiting For? Purchase Now!</p>
+            <p x-show="activeIndex === 3" class="font-medium truncate" style="display: none;">USE CODE RELEASE FOR 25% OFF UR NEXT PURCHASE!</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Content Container -->
+      <div class="flex flex-col justify-between max-w-[85rem] min-h-screen mx-auto p-4 relative md:p-6 lg:p-8">
+        <div>
+          <!-- Navbar -->
+          <nav class="component">
+            <div class="bg-gray-900 bg-opacity-75 border border-white border-opacity-5 p-4 rounded-lg">
+              <div class="flex items-center justify-between flex-wrap w-full">
+                <div class="flex items-center">
+                  <a href="#" class="flex items-center justify-center gap-4 lg:justify-start">
+                    <img src="Image.png" alt="Void Executor" class="max-h-10 rounded shadow-md" />
+                    <h1 class="text-white text-xl lg:text-2xl font-bold tracking-wide">Void Executor</h1>
+                  </a>
+                </div>
+
+                <!-- Currency Selector -->
+                <div class="flex items-center gap-4">
+                  <div class="currency-selector">
+                    <select x-model="currency" class="bg-gray-800 text-white p-2 rounded font-semibold text-sm border border-white border-opacity-10 cursor-pointer focus:outline-none">
+                      <option value="eur">€ EUR (Default)</option>
+                      <option value="bgn">лв. BGN</option>
+                      <option value="usd">$ USD</option>
+                      <option value="gbp">£ GBP</option>
+                      <option value="btc">₿ BTC</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </nav>
+          
+          <!-- Products Main Section -->
+          <main class="mt-12">
+             <div class="text-center mb-10">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-3 tracking-tight">Products</h2>
+                <p class="text-gray-400 text-sm lg:text-base">Select a product below to proceed with your automated purchase.</p>
+             </div>
+
+             <!-- Products Grid -->
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Product Card: Void Executor -->
+                <div class="product-card rounded-xl overflow-hidden p-5 flex flex-col justify-between">
+                   <div>
+                      <!-- Product Image -->
+                      <div class="relative rounded-lg overflow-hidden aspect-video mb-4 bg-gray-900 flex items-center justify-center">
+                         <img src="Image.png" alt="Void Executor" class="object-cover w-1/2 h-auto" />
+                      </div>
+                      
+                      <!-- Product Title & Stock -->
+                      <div class="flex justify-between items-start mb-2">
+                         <h3 class="text-xl font-bold tracking-wide text-left">Void Executor</h3>
+                         <span class="bg-green-500 bg-opacity-10 text-green-400 text-xs px-2.5 py-1 rounded-full font-semibold border border-green-500 border-opacity-20">
+                            <i class="fa-solid fa-layer-group mr-1"></i> In Stock
+                         </span>
+                      </div>
+                      
+                      <p class="text-gray-400 text-sm text-left line-clamp-3 mb-6">
+                         Premium executor with top-tier stability, high execution rates, and custom UI. Instant delivery upon purchase.
+                      </p>
+                   </div>
+
+                   <!-- Price and Buy Button -->
+                   <div class="flex items-center justify-between pt-4 border-t border-white border-opacity-5 mt-auto">
+                      <div class="text-left">
+                         <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Price</p>
+                         <p class="text-2xl font-bold text-white tracking-tight" x-text="getFormattedPrice()"></p>
+                      </div>
+                      <!-- Кликът тук отваря Модала за плащане -->
+                      <button @click="showModal = true" class="btn-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm shadow-lg flex items-center gap-2">
+                         <i class="fa-solid fa-cart-shopping"></i> Purchase
+                      </button>
+                   </div>
+                </div>
+
+             </div>
+          </main>
+
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center py-6 text-gray-500 text-sm mt-16 border-t border-white border-opacity-5">
+          &copy; 2026 Void Executor. Powered by SellAuth.
+        </footer>
+      </div>
+
+      <!-- INTERACTIVE PAYMENT MODAL (Прозорец за плащане) -->
+      <div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg" style="display: none;" @keydown.escape.window="showModal = false">
+         <div class="bg-gray-900 border border-white border-opacity-10 rounded-2xl max-w-md w-full p-6 shadow-2xl relative" @click.away="showModal = false">
+            
+            <!-- Close Button -->
+            <button @click="showModal = false" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+               <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- Modal Header (С твоята снимка и име) -->
+            <div class="flex items-center gap-4 border-b border-white border-opacity-5 pb-4 mb-6">
+               <img src="Image.png" alt="Void Executor" class="h-14 w-14 rounded-lg object-cover shadow-lg border border-white border-opacity-10" />
+               <div class="text-left">
+                  <h4 class="text-lg font-bold text-white">Void Executor</h4>
+                  <p class="text-sm text-gray-400">Secure Checkout</p>
+               </div>
+               <div class="ml-auto text-right">
+                  <p class="text-xs text-gray-500 uppercase font-semibold">Total</p>
+                  <p class="text-xl font-bold text-indigo-400" x-text="getFormattedPrice()"></p>
+               </div>
+            </div>
+
+            <!-- Payment Form -->
+            <form @submit.prevent="alert('Payment simulation successful! Your product key will be sent shortly.')">
+               
+               <!-- Email Field -->
+               <div class="mb-4 text-left">
+                  <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Email Address</label>
+                  <div class="relative">
+                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                        <i class="fa-solid fa-envelope"></i>
+                     </span>
+                     <input type="email" required placeholder="your@email.com" class="payment-input w-full pl-10 pr-4 py-2.5 rounded-lg text-sm transition" />
+                  </div>
+               </div>
+
+               <!-- Credit Card Fields -->
+               <div class="mb-6 text-left">
+                  <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Credit Card Information</label>
+                  
+                  <!-- Card Number -->
+                  <div class="relative mb-3">
+                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                        <i class="fa-solid fa-credit-card"></i>
+                     </span>
+                     <input type="text" required maxlength="19" placeholder="4111 2222 3333 4444" class="payment-input w-full pl-10 pr-4 py-2.5 rounded-lg text-sm transition" />
+                  </div>
+
+                  <!-- Exp & CVC Grid -->
+                  <div class="grid grid-cols-2 gap-3">
+                     <div>
+                        <input type="text" required maxlength="5" placeholder="MM/YY" class="payment-input w-full px-4 py-2.5 rounded-lg text-sm text-center transition" />
+                     </div>
+                     <div>
+                        <input type="password" required maxlength="4" placeholder="CVC" class="payment-input w-full px-4 py-2.5 rounded-lg text-sm text-center transition" />
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Submit Button -->
+               <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-sm shadow-lg flex items-center justify-center gap-2 tracking-wide">
+                  <i class="fa-solid fa-lock text-xs opacity-80"></i> Pay <span x-text="getFormattedPrice()"></span>
+               </button>
+
+               <!-- Secure Info -->
+               <p class="text-center text-xs text-gray-500 mt-4">
+                  <i class="fa-solid fa-shield-halved mr-1"></i> End-to-end encrypted & secure payment.
+               </p>
+
+            </form>
+         </div>
+      </div>
+
+    </div>
+
+    <!-- AlpineJS за интерактивност -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </body>
+</html>
