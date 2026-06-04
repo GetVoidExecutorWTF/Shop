@@ -7,8 +7,8 @@
     <title>Void Executor</title>
     <meta name="description" content="Get Void Executor for the best price.">
     <meta property="og:title" content="Void Executor">
-    <meta property="og:image" content="Image.png">
-    <link rel="icon" type="image/png" href="Image.png">
+    <meta property="og:image" content="icon.ico">
+    <link rel="icon" type="image/x-icon" href="icon.ico">
     <meta name="theme-color" content="#6571ff" />
 
     <!-- Google Fonts & Icons -->
@@ -67,7 +67,7 @@
     <!-- Background Image / Overlay -->
     <div class="fixed inset-0 z-[-1] bg-center bg-cover pointer-events-none opacity-20" style="background-image: url('https://static.mysellauth.com/storage/images/911826.webp');"></div>
     
-    <!-- App Wrapper с AlpineJS за управление на валутите и прозореца за плащане -->
+    <!-- App Wrapper -->
     <div id="app" x-data="{ 
       currency: 'eur',
       basePrice: 3.00,
@@ -104,7 +104,7 @@
               <div class="flex items-center justify-between flex-wrap w-full">
                 <div class="flex items-center">
                   <a href="#" class="flex items-center justify-center gap-4 lg:justify-start">
-                    <img src="Image.png" alt="Void Executor" class="max-h-10 rounded shadow-md" />
+                    <img src="icon.ico" alt="Void Executor" class="max-h-10 rounded shadow-md" />
                     <h1 class="text-white text-xl lg:text-2xl font-bold tracking-wide">Void Executor</h1>
                   </a>
                 </div>
@@ -141,7 +141,7 @@
                    <div>
                       <!-- Product Image -->
                       <div class="relative rounded-lg overflow-hidden aspect-video mb-4 bg-gray-900 flex items-center justify-center">
-                         <img src="Image.png" alt="Void Executor" class="object-cover w-1/2 h-auto" />
+                         <img src="icon.ico" alt="Void Executor" class="object-cover w-1/2 h-auto" />
                       </div>
                       
                       <!-- Product Title & Stock -->
@@ -163,7 +163,6 @@
                          <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Price</p>
                          <p class="text-2xl font-bold text-white tracking-tight" x-text="getFormattedPrice()"></p>
                       </div>
-                      <!-- Кликът тук отваря Модала за плащане -->
                       <button @click="showModal = true" class="btn-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm shadow-lg flex items-center gap-2">
                          <i class="fa-solid fa-cart-shopping"></i> Purchase
                       </button>
@@ -181,7 +180,7 @@
         </footer>
       </div>
 
-      <!-- INTERACTIVE PAYMENT MODAL (Прозорец за плащане) -->
+      <!-- INTERACTIVE PAYMENT MODAL -->
       <div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg" style="display: none;" @keydown.escape.window="showModal = false">
          <div class="bg-gray-900 border border-white border-opacity-10 rounded-2xl max-w-md w-full p-6 shadow-2xl relative" @click.away="showModal = false">
             
@@ -190,9 +189,9 @@
                <i class="fa-solid fa-xmark text-xl"></i>
             </button>
 
-            <!-- Modal Header (С твоята снимка и име) -->
+            <!-- Modal Header -->
             <div class="flex items-center gap-4 border-b border-white border-opacity-5 pb-4 mb-6">
-               <img src="Image.png" alt="Void Executor" class="h-14 w-14 rounded-lg object-cover shadow-lg border border-white border-opacity-10" />
+               <img src="icon.ico" alt="Void Executor" class="h-14 w-14 rounded-lg object-cover shadow-lg border border-white border-opacity-10" />
                <div class="text-left">
                   <h4 class="text-lg font-bold text-white">Void Executor</h4>
                   <p class="text-sm text-gray-400">Secure Checkout</p>
